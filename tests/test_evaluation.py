@@ -75,21 +75,13 @@ def test_evaluation():
 
     for checkpoint_path in checkpoint_paths:
         # Define parameters for the test
-<<<<<<< HEAD
-        env = str(checkpoint_path).split("/")[-2].split("_")[1]
-=======
         env = str(checkpoint_path).split("/")[-2].split("_")[1] + "-Eval"
->>>>>>> STR_DeepRL/hw3
         scenario_name = env.split("-v3-")[1]
         gif = f"{scenario_name}_{SUBMITTER_NAME}"
 
         policies_to_eval = ["red_0"]
         if "2v2" in scenario_name:
             policies_to_eval = ["red"]
-<<<<<<< HEAD
-        elif "CTDE-Red" in scenario_name:
-            policies_to_eval = ["red_0", "red_1"]
-=======
             evaluation_config["team_policies_mapping"] = {
                                 "red": "your_policy_name",
                             }
@@ -100,7 +92,6 @@ def test_evaluation():
                     "red_0": "your_policy_name",
                     "red_1": "your_policy_name_v2",
                 }
->>>>>>> STR_DeepRL/hw3
 
         # Set argument
         params = {
@@ -132,9 +123,6 @@ def test_evaluation():
 
 
 # cProfile.run('test_evaluation()', 'test_evaluation_output.prof')
-<<<<<<< HEAD
-=======
 
 
 test_evaluation()
->>>>>>> STR_DeepRL/hw3

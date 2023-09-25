@@ -46,20 +46,11 @@ EVALUATION_CONFIG_FILE = sorted(
 )[-1]
 
 with open(EVALUATION_CONFIG_FILE, "r") as file:
-<<<<<<< HEAD
     evaluation_config_data = file.read()
-=======
-   evaluation_config_data = file.read()
->>>>>>> STR_DeepRL/hw3
 
 evaluation_config = json.loads(evaluation_config_data)
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> STR_DeepRL/hw3
 def save_frames_to_gif(frames: List[np.ndarray], save_path: Path, filename: str) -> None:
     """
     Saves frames as a GIF.
@@ -183,19 +174,11 @@ def evaluation(
 # Custom sorting policy_ids function
 def sort_policy_id(policy_id):
     # Split policy_id to extract version number
-<<<<<<< HEAD
     parts = policy_id.split("_v")
-=======
-    parts = policy_id.split('_v')
->>>>>>> STR_DeepRL/hw3
     # If version number is present, convert to int, otherwise use -1
     version = int(parts[1]) if len(parts) > 1 else -1
     return version
 
-<<<<<<< HEAD
-
-=======
->>>>>>> STR_DeepRL/hw3
 def main_evaluation(args):
     """
     Main function for evaluation. Sets up the environment, restores the trained algorithm,
@@ -209,11 +192,7 @@ def main_evaluation(args):
     args.env_config.update(render_mode=args.render_mode)
     team_policies_mapping = args.eval_config["team_policies_mapping"]
 
-<<<<<<< HEAD
     # HW3 NOTE - Setup Policies
-=======
-    # HW3 TODO - Setup Policies
->>>>>>> STR_DeepRL/hw3
     evaluating_policies = {}
     for policy_id in args.policies_to_eval:
         policy_name = team_policies_mapping[policy_id]
@@ -224,11 +203,7 @@ def main_evaluation(args):
         **vars(args),
         num_workers=0,
         num_gpus=0,
-<<<<<<< HEAD
-        policies_map=evaluating_policies,
-=======
         policies_map = evaluating_policies,
->>>>>>> STR_DeepRL/hw3
     )
     config.explore = False
     config.environment(disable_env_checking=True)
@@ -245,27 +220,6 @@ def main_evaluation(args):
 
     if checkpoint:
         from ray.rllib.policy.policy import Policy
-<<<<<<< HEAD
-
-        print(f"Loading checkpoint from {checkpoint}")
-        algorithm.restore(checkpoint)
-        opponent_policies = [policy for policy in algorithm.config.policies if policy not in args.policies_to_eval]
-
-        if "default_DTDE_1v1_opponent_checkpoint" in args.eval_config and "DTDE_1v1" in args.env:
-            restored_policies = Policy.from_checkpoint(args.eval_config["default_DTDE_1v1_opponent_checkpoint"])
-        elif "default_CTCE_2v2_opponent_checkpoint" in args.eval_config and "CTCE_2v2" in args.env:
-            restored_policies = Policy.from_checkpoint(args.eval_config["default_CTCE_2v2_opponent_checkpoint"])
-        else:
-            restored_policies = Policy.from_checkpoint(checkpoint)
-
-        sorted_keys = sorted(restored_policies.keys(), key=sort_policy_id, reverse=True)
-
-        for idx, agent_id in enumerate(opponent_policies):
-            best_opponent_policy_id = sorted_keys[: len(opponent_policies)][idx]
-            restored_policy_weights = restored_policies[best_opponent_policy_id].get_weights()
-            algorithm.set_weights({agent_id: restored_policy_weights})
-
-=======
         print(f"Loading checkpoint from {checkpoint}")
  
         if "default_DTDE_1v1_opponent_checkpoint" in args.eval_config and "DTDE-1v1" in args.env:
@@ -290,16 +244,11 @@ def main_evaluation(args):
 
         # algorithm.restore(checkpoint)
        
->>>>>>> STR_DeepRL/hw3
     frames, episodes_data = evaluation(
         algorithm, num_episodes=args.num_episodes, policies_to_eval=args.policies_to_eval
     )
 
-<<<<<<< HEAD
-    scenario_name = args.env.split("-v3-")[1]  # str(checkpoint).split("/")[-2].split("_")[1].split("-v3-")[1]
-=======
     scenario_name = args.env.split("-v3-")[1] #str(checkpoint).split("/")[-2].split("_")[1].split("-v3-")[1]
->>>>>>> STR_DeepRL/hw3
     save_evaluation_metrics(episodes_data=episodes_data, save_path=save_path, scenario_name=scenario_name)
 
     if args.gif:
@@ -327,21 +276,11 @@ if __name__ == "__main__":
         "--eval-config",
         type=json.loads,
         default=evaluation_config,
-<<<<<<< HEAD
-        help='Evaluation config dict, given as a JSON string (e.g. \'{"team_policies_mapping": {"red_0" : "your_policy_name" , "blued_0" : "your_policy_name" }}\')',
-    )
-    parser.add_argument("--num-episodes", type=int, default=10, help="Number of episodes to visualize.")
-    parser.add_argument("--load-dir", type=str, help="Checkpoint directory for loading pre-trained policies.")
-    parser.add_argument(
-        "--policies-to-eval", nargs="+", type=str, default=["red_0", "blue_0"], help="List of agent ids to train"
-    )
-=======
         help="Evaluation config dict, given as a JSON string (e.g. '{\"team_policies_mapping\": {\"red_0\" : \"your_policy_name\" , \"blued_0\" : \"your_policy_name\" }}')",
     )
     parser.add_argument("--num-episodes", type=int, default=10, help="Number of episodes to visualize.")
     parser.add_argument("--load-dir", type=str, help="Checkpoint directory for loading pre-trained policies.")
     parser.add_argument("--policies-to-eval", nargs="+", type=str, default=["red_0", "blue_0"], help="List of agent ids to train")
->>>>>>> STR_DeepRL/hw3
     parser.add_argument("--gif", type=str, help="Store output as GIF at given path.")
     parser.add_argument(
         "--name", type=str, default="<my_experinemnt>", help="Distinct name to track your experinemnt in save-dir"
