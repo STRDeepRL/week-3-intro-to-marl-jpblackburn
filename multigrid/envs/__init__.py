@@ -237,7 +237,11 @@ CONFIGURATIONS = {
                 },
             },
             "randomization": True,
+<<<<<<< HEAD
             "max_steps": 300,
+=======
+            "max_steps": 100,
+>>>>>>> STR_DeepRL/hw3
         },
     ),
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-Red-Eval": (
@@ -295,7 +299,11 @@ CONFIGURATIONS = {
                 },
             },
             "randomization": True,
+<<<<<<< HEAD
             "max_steps": 300,
+=======
+            "max_steps": 100,
+>>>>>>> STR_DeepRL/hw3
         },
     ),
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-1v1": (
@@ -328,6 +336,39 @@ CONFIGURATIONS = {
             "max_steps": 300,
         },
     ),
+<<<<<<< HEAD
+=======
+    "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-1v1-Eval": (
+        CompetativeRedBlueDoorEnvV3,
+        {
+            "size": 8,
+            "allow_agent_overlap": False,
+            "has_obsticle": False,
+            "death_match": True,
+            "teams": {"blue": 1, "red": 1},
+            "agents": 2,
+            "training_scheme": "DTDE",
+            "reward_schemes": {
+                "red_0": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+                "blue_0": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+            },
+            "randomization": True,
+            "max_steps": 100,
+        },
+    ),
+>>>>>>> STR_DeepRL/hw3
     "MultiGrid-CompetativeRedBlueDoor-v3-CTCE-1v1": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -400,6 +441,53 @@ CONFIGURATIONS = {
             },
         },
     ),
+<<<<<<< HEAD
+=======
+    "MultiGrid-CompetativeRedBlueDoor-v3-CTCE-2v2-Eval": (
+        CompetativeRedBlueDoorEnvV3,
+        {
+            "size": 8,
+            "allow_agent_overlap": False,
+            "has_obsticle": True,
+            "death_match": True,
+            "teams": {"blue": 2, "red": 2},
+            "agents": 4,
+            "training_scheme": "CTCE",
+            "reward_schemes": {
+                "red_0": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+                "red_1": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+                "blue_0": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+                "blue_1": {
+                    "eliminated_opponent_sparse_reward": 0.5,
+                    "key_pickup_sparse_reward": 0.5,
+                    "ball_pickup_dense_reward": 0.5,
+                    "dense_reward_discount_factor": {"ball_carrying_discount_factor": 0.9},
+                    "invalid_pickup_dense_penalty": 0.001,
+                },
+            },
+            "randomization": True,
+            "max_steps": 300,
+        },
+    ),
+>>>>>>> STR_DeepRL/hw3
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-2v2": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -625,10 +713,16 @@ CONFIGURATIONS = {
 }
 
 # Register environments with gymnasium
+<<<<<<< HEAD
 from gymnasium.envs.registration import register
+=======
+>>>>>>> STR_DeepRL/hw3
 from ray.tune.registry import register_env
 
 for name, (env_cls, config) in CONFIGURATIONS.items():
     register_env(name, lambda config: env_cls(config))
+<<<<<<< HEAD
 
     # register(id=name, entry_point=env_cls, kwargs=config)
+=======
+>>>>>>> STR_DeepRL/hw3
