@@ -237,11 +237,7 @@ CONFIGURATIONS = {
                 },
             },
             "randomization": True,
-<<<<<<< HEAD
-            "max_steps": 300,
-=======
             "max_steps": 100,
->>>>>>> STR_DeepRL/hw3
         },
     ),
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-Red-Eval": (
@@ -299,11 +295,7 @@ CONFIGURATIONS = {
                 },
             },
             "randomization": True,
-<<<<<<< HEAD
-            "max_steps": 300,
-=======
             "max_steps": 100,
->>>>>>> STR_DeepRL/hw3
         },
     ),
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-1v1": (
@@ -336,8 +328,6 @@ CONFIGURATIONS = {
             "max_steps": 300,
         },
     ),
-<<<<<<< HEAD
-=======
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-1v1-Eval": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -368,7 +358,6 @@ CONFIGURATIONS = {
             "max_steps": 100,
         },
     ),
->>>>>>> STR_DeepRL/hw3
     "MultiGrid-CompetativeRedBlueDoor-v3-CTCE-1v1": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -441,8 +430,6 @@ CONFIGURATIONS = {
             },
         },
     ),
-<<<<<<< HEAD
-=======
     "MultiGrid-CompetativeRedBlueDoor-v3-CTCE-2v2-Eval": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -487,7 +474,6 @@ CONFIGURATIONS = {
             "max_steps": 300,
         },
     ),
->>>>>>> STR_DeepRL/hw3
     "MultiGrid-CompetativeRedBlueDoor-v3-DTDE-2v2": (
         CompetativeRedBlueDoorEnvV3,
         {
@@ -713,16 +699,7 @@ CONFIGURATIONS = {
 }
 
 # Register environments with gymnasium
-<<<<<<< HEAD
-from gymnasium.envs.registration import register
-=======
->>>>>>> STR_DeepRL/hw3
 from ray.tune.registry import register_env
 
 for name, (env_cls, config) in CONFIGURATIONS.items():
     register_env(name, lambda config: env_cls(config))
-<<<<<<< HEAD
-
-    # register(id=name, entry_point=env_cls, kwargs=config)
-=======
->>>>>>> STR_DeepRL/hw3
