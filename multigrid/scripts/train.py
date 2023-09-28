@@ -314,7 +314,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    args.policies_to_train = list(training_config["team_policies_mapping"].keys())
+    args.policies_to_train = list(args.training_config["team_policies_mapping"].keys())
     args.multiagent = {}
     args.multiagent["policies_to_train"] = args.policies_to_train
     config = configure_algorithm(args)
