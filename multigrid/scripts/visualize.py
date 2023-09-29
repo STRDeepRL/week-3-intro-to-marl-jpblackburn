@@ -179,7 +179,6 @@ def sort_policy_id(policy_id):
     version = int(parts[1]) if len(parts) > 1 else -1
     return version
 
-
 def main_evaluation(args):
     """
     Main function for evaluation. Sets up the environment, restores the trained algorithm,
@@ -204,7 +203,7 @@ def main_evaluation(args):
         **vars(args),
         num_workers=0,
         num_gpus=0,
-        policies_map=evaluating_policies,
+        policies_map = evaluating_policies,
     )
     config.explore = False
     config.environment(disable_env_checking=True)
@@ -221,30 +220,35 @@ def main_evaluation(args):
 
     if checkpoint:
         from ray.rllib.policy.policy import Policy
-
         print(f"Loading checkpoint from {checkpoint}")
-        algorithm.restore(checkpoint)
-        opponent_policies = [policy for policy in algorithm.config.policies if policy not in args.policies_to_eval]
-
-        if "default_DTDE_1v1_opponent_checkpoint" in args.eval_config and "DTDE_1v1" in args.env:
+ 
+        if "default_DTDE_1v1_opponent_checkpoint" in args.eval_config and "DTDE-1v1" in args.env:
             restored_policies = Policy.from_checkpoint(args.eval_config["default_DTDE_1v1_opponent_checkpoint"])
-        elif "default_CTCE_2v2_opponent_checkpoint" in args.eval_config and "CTCE_2v2" in args.env:
+        elif "default_CTCE_2v2_opponent_checkpoint" in args.eval_config and "CTCE-2v2" in args.env:
             restored_policies = Policy.from_checkpoint(args.eval_config["default_CTCE_2v2_opponent_checkpoint"])
         else:
             restored_policies = Policy.from_checkpoint(checkpoint)
-
+        
         sorted_keys = sorted(restored_policies.keys(), key=sort_policy_id, reverse=True)
+        opponent_policies=[policy for policy in algorithm.config.policies if policy not in args.policies_to_eval]
 
         for idx, agent_id in enumerate(opponent_policies):
-            best_opponent_policy_id = sorted_keys[: len(opponent_policies)][idx]
+            best_opponent_policy_id = sorted_keys[:len(opponent_policies)][idx]
             restored_policy_weights = restored_policies[best_opponent_policy_id].get_weights()
             algorithm.set_weights({agent_id: restored_policy_weights})
 
+        for agent_id in args.policies_to_eval :
+            restored_policy_weights = restored_policies[agent_id].get_weights()
+            algorithm.set_weights({agent_id: restored_policy_weights})
+
+
+        # algorithm.restore(checkpoint)
+       
     frames, episodes_data = evaluation(
         algorithm, num_episodes=args.num_episodes, policies_to_eval=args.policies_to_eval
     )
 
-    scenario_name = args.env.split("-v3-")[1]  # str(checkpoint).split("/")[-2].split("_")[1].split("-v3-")[1]
+    scenario_name = args.env.split("-v3-")[1] #str(checkpoint).split("/")[-2].split("_")[1].split("-v3-")[1]
     save_evaluation_metrics(episodes_data=episodes_data, save_path=save_path, scenario_name=scenario_name)
 
     if args.gif:
@@ -272,13 +276,11 @@ if __name__ == "__main__":
         "--eval-config",
         type=json.loads,
         default=evaluation_config,
-        help='Evaluation config dict, given as a JSON string (e.g. \'{"team_policies_mapping": {"red_0" : "your_policy_name" , "blued_0" : "your_policy_name" }}\')',
+        help="Evaluation config dict, given as a JSON string (e.g. '{\"team_policies_mapping\": {\"red_0\" : \"your_policy_name\" , \"blued_0\" : \"your_policy_name\" }}')",
     )
     parser.add_argument("--num-episodes", type=int, default=10, help="Number of episodes to visualize.")
     parser.add_argument("--load-dir", type=str, help="Checkpoint directory for loading pre-trained policies.")
-    parser.add_argument(
-        "--policies-to-eval", nargs="+", type=str, default=["red_0", "blue_0"], help="List of agent ids to train"
-    )
+    parser.add_argument("--policies-to-eval", nargs="+", type=str, default=["red_0", "blue_0"], help="List of agent ids to train")
     parser.add_argument("--gif", type=str, help="Store output as GIF at given path.")
     parser.add_argument(
         "--name", type=str, default="<my_experinemnt>", help="Distinct name to track your experinemnt in save-dir"

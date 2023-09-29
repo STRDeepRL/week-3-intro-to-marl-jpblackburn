@@ -14,7 +14,7 @@ def get_version():
 
     for line in content.splitlines():
         if line.startswith("__version__"):
-            return line.strip().split()[-1].strip().strip("'")
+            return line.strip().split()[-1].strip().strip("'").strip('"')
 
     raise RuntimeError("bad version data in __init__.py")
 

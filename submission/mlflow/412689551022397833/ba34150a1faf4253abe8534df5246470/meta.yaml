@@ -1,0 +1,15 @@
+artifact_uri: /home/jba0109/rl_class/code/week3/submission/mlflow/412689551022397833/ba34150a1faf4253abe8534df5246470/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '412689551022397833'
+lifecycle_stage: active
+run_id: ba34150a1faf4253abe8534df5246470
+run_name: CentralizedCritic_MultiGrid-CompetativeRedBlueDoor-v3-CTDE-Red_f7343_00000
+run_uuid: ba34150a1faf4253abe8534df5246470
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695671510988
+status: 1
+tags: []
+user_id: unknown
